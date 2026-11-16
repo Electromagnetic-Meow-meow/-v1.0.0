@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工资小组件 · 设置</title>
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body data-accent="sunset">
+  <div class="window">
+    <header class="titlebar">
+      <div class="brand">
+        <span class="logo">¥</span>
+        <div>
+          <div class="title">工资小组件</div>
+          <div class="subtitle">设置你的收入与作息</div>
+        </div>
+      </div>
+      <button class="close-btn" id="closeBtn" title="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="content" id="content">
+      <section class="group">
+        <div class="group-head">
+          <h2>收入</h2>
+          <span class="group-hint">只在本机计算，不会上传</span>
+        </div>
+        <div class="grid">
+          <label class="field">
+            <span>月薪（元 / 月）</span>
+            <input id="monthlySalary" type="number" min="0" max="10000000" step="100" inputmode="decimal" />
+          </label>
+          <label class="field">
+            <span>加班基数（元 / 月）</span>
+            <input id="overtimeBase" type="number" min="0" max="10000000" step="100" inputmode="decimal" />
+          </label>
+          <label class="field">
+            <span>工作日加班倍率</span>
+            <input id="overtimeMultiplier" type="number" min="0" max="10" step="0.5" inputmode="decimal" />
+          </label>
+          <label class="field">
+            <span>周末加班倍率</span>
+            <input id="weekendOvertimeMultiplier" type="number" min="0" max="10" step="0.5" inputmode="decimal" />
+          </label>
+          <label class="field">
+            <span>法定节假日加班倍率</span>
+            <input id="holidayOvertimeMultiplier" type="number" min="0" max="10" step="0.5" inputmode="decimal" />
+          </label>
+        </div>
+        <p class="hint">加班时薪 = 加班基数 ÷ 当月实际工作日 ÷ 8 × 对应倍率；默认工作日 1.5 倍、周末 2 倍、法定节假日 3 倍。月薪和加班基数都按当月实际工作日折算。</p>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>工作时间</h2>
+        </div>
+        <div class="grid">
+          <label class="field">
+            <span>上班时间</span>
+            <input id="workStart" type="time" />
+          </label>
+          <label class="field">
+            <span>下班时间</span>
+            <input id="workEnd" type="time" />
+          </label>
+          <label class="field">
+            <span>午休开始</span>
+            <input id="lunchStart" type="time" />
+          </label>
+          <label class="field">
+            <span>午休结束</span>
+            <input id="lunchEnd" type="time" />
+          </label>
+          <label class="field">
+            <span>晚休开始</span>
+            <input id="eveningStart" type="time" />
+          </label>
+          <label class="field">
+            <span>晚休结束</span>
+            <input id="eveningEnd" type="time" />
+          </label>
+        </div>
+        <p class="hint">午休、晚休的开始与结束设为同一时间表示没有休息。晚休可以设在下班后（例如 18:00–18:30），加班计时会自动扣除。</p>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>工作日与加班</h2>
+          <span class="group-hint">默认为周一到周五</span>
+        </div>
+        <div class="weekdays" id="workdays">
+          <label class="day-chip"><input type="checkbox" value="1" /><span>一</span></label>
+          <label class="day-chip"><input type="checkbox" value="2" /><span>二</span></label>
+          <label class="day-chip"><input type="checkbox" value="3" /><span>三</span></label>
+          <label class="day-chip"><input type="checkbox" value="4" /><span>四</span></label>
+          <label class="day-chip"><input type="checkbox" value="5" /><span>五</span></label>
+          <label class="day-chip"><input type="checkbox" value="6" /><span>六</span></label>
+          <label class="day-chip"><input type="checkbox" value="0" /><span>日</span></label>
+        </div>
+        <p class="hint">勾选的日期按普通工作日计算；未勾选的按周末/休息日计算，加班按周末倍率。</p>
+        <label class="switch-row">
+          <span class="switch-text">
+            工作日自动计算加班
+            <small>下班后自动开始计加班费，不再显示「我还要加班」</small>
+          </span>
+          <span class="switch"><input id="autoWorkdayOt" type="checkbox" /><i></i></span>
+        </label>
+        <label class="switch-row">
+          <span class="switch-text">
+            周末自动计算加班
+            <small>非工作日从上班时间开始自动计周末加班费</small>
+          </span>
+          <span class="switch"><input id="autoRestOt" type="checkbox" /><i></i></span>
+        </label>
+        <p class="hint">未勾选自动计算时，点「我还要加班」手动开始；勾选后只显示「我下班啦！」用于结束计时。</p>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>法定节假日</h2>
+          <span class="group-hint">下载后导入，自动识别</span>
+        </div>
+        <label class="field">
+          <span>下载地址</span>
+          <input id="holidayUrl" type="url" spellcheck="false" />
+        </label>
+        <div class="holiday-actions">
+          <button class="mini-btn" id="holidayOpenUrl" type="button">打开下载页</button>
+          <button class="mini-btn" id="holidayImport" type="button">导入文件</button>
+          <button class="mini-btn" id="holidayFolder" type="button">打开文件夹</button>
+          <button class="mini-btn danger" id="holidayClear" type="button">清除</button>
+        </div>
+        <div class="holiday-status" id="holidayStatus">未导入节假日数据</div>
+        <p class="hint">在浏览器里人工下载 JSON 后点「导入文件」；也可以把文件放进节假日文件夹，程序会自动识别。支持 holiday-cn 的 days 格式，以及 holidays / workdays 数组格式。</p>
+
+        <label class="switch-row">
+          <span class="switch-text">
+            启用天聚数行在线节假日接口
+            <small>启用后自动拉取当年法定节假日；需要 API Key</small>
+          </span>
+          <span class="switch"><input id="holidayApiEnabled" type="checkbox" /><i></i></span>
+        </label>
+        <label class="field">
+          <span>天聚数行 API Key</span>
+          <input id="holidayApiKey" type="password" autocomplete="off" spellcheck="false" placeholder="在 tianapi.com 注册后获取" />
+        </label>
+        <div class="holiday-actions">
+          <button class="mini-btn" id="holidayApiSync" type="button">立即同步</button>
+          <button class="mini-btn danger" id="holidayApiClearKey" type="button">清除 Key</button>
+          <button class="mini-btn" id="holidayApiDocs" type="button">接口文档</button>
+        </div>
+        <div class="holiday-status" id="holidayApiStatus">在线接口未启用</div>
+        <div class="holiday-status" id="holidayApiUsage">今日自动 0/3 · 手动 0/3</div>
+        <p class="hint">API Key 只保存在本机；普通会员免费额度约 100 次/天，程序只在启用后按年同步并缓存。修改开关或 Key 后先保存设置，保存后会自动同步。</p>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>请假</h2>
+          <span class="group-hint">一次只记录一天</span>
+        </div>
+        <p class="hint">有薪假/年假按请假时段的正常工资计薪；病假按下面比例乘以请假时段工资；事假不计薪。有薪假和事假会跳过周末、法定节假日。</p>
+        <div class="grid">
+          <label class="field">
+            <span>病假计薪比例（%）</span>
+            <input id="sickLeaveRatio" type="number" min="0" max="100" step="1" inputmode="decimal" />
+          </label>
+        </div>
+        <div class="holiday-actions">
+          <button class="mini-btn" id="leaveBtn" type="button">请假设置…</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>外观</h2>
+        </div>
+        <div class="swatches" id="swatches">
+          <button class="swatch" type="button" data-accent="sunset" title="暖阳橙"><span></span></button>
+          <button class="swatch" type="button" data-accent="gold" title="琥珀金"><span></span></button>
+          <button class="swatch" type="button" data-accent="coral" title="珊瑚红"><span></span></button>
+          <button class="swatch" type="button" data-accent="pink" title="樱花粉"><span></span></button>
+          <button class="swatch" type="button" data-accent="violet" title="紫罗兰"><span></span></button>
+          <button class="swatch" type="button" data-accent="blue" title="天空蓝"><span></span></button>
+          <button class="swatch" type="button" data-accent="cyan" title="青蓝"><span></span></button>
+          <button class="swatch" type="button" data-accent="mint" title="薄荷绿"><span></span></button>
+        </div>
+        <label class="switch-row">
+          <span class="switch-text">
+            窗口保持置顶
+            <small>始终显示在其他窗口上方</small>
+          </span>
+          <span class="switch"><input id="alwaysOnTop" type="checkbox" /><i></i></span>
+        </label>
+        <label class="switch-row">
+          <span class="switch-text">
+            开机自动启动
+            <small>登录 Windows 后自动运行</small>
+          </span>
+          <span class="switch"><input id="autostart" type="checkbox" /><i></i></span>
+        </label>
+        <label class="switch-row">
+          <span class="switch-text">
+            关闭时最小化到托盘
+            <small>不勾选时点 × 直接退出；托盘不可用时点 × 也会直接退出</small>
+          </span>
+          <span class="switch"><input id="minimizeToTray" type="checkbox" /><i></i></span>
+        </label>
+        <label class="switch-row">
+          <span class="switch-text">
+            贴边自动隐藏
+            <small>主窗口拖到屏幕四边后收起为进度条，悬停展开，移开自动收起</small>
+          </span>
+          <span class="switch"><input id="dockEnabled" type="checkbox" /><i></i></span>
+        </label>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-info">
+        <div class="preview" id="preview">时薪约 ¥0.00 · 每日 0 小时</div>
+        <div class="error" id="error" role="alert"></div>
+      </div>
+      <div class="footer-actions">
+        <button class="btn ghost" id="cancelBtn" type="button">取消</button>
+        <button class="btn primary" id="saveBtn" type="button">保存设置</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

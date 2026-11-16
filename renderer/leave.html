@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工资小组件 · 请假</title>
+  <link rel="stylesheet" href="settings.css" />
+  <link rel="stylesheet" href="leave.css" />
+</head>
+<body data-accent="sunset">
+  <div class="window leave-window">
+    <header class="titlebar">
+      <div class="brand">
+        <span class="logo">¥</span>
+        <div>
+          <div class="title">请假</div>
+          <div class="subtitle">点选日期，再选择请假类型；一次只记录一天</div>
+        </div>
+      </div>
+      <button class="close-btn" id="closeBtn" title="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="content leave-content">
+      <section class="group">
+        <div class="calendar-head">
+          <button class="calendar-nav" id="prevMonth" type="button" title="上个月">‹</button>
+          <b id="monthLabel"></b>
+          <button class="calendar-nav" id="nextMonth" type="button" title="下个月">›</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <p class="hint" id="dateHint"></p>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>请假类型</h2>
+        </div>
+        <div class="leave-types">
+          <label class="leave-option">
+            <input type="radio" name="leaveType" value="paid" checked />
+            <span class="leave-option-body">
+              <b>有薪假/年假</b>
+              <small>按请假时段的正常工资计算，可精确到分钟；遇到周末/节假日会跳过</small>
+            </span>
+          </label>
+          <label class="leave-option">
+            <input type="radio" name="leaveType" value="sick" />
+            <span class="leave-option-body">
+              <b>病假</b>
+              <small id="sickRateText">按正常工资的 80% 计算；不跳过周末和节假日，但这些天不计薪</small>
+            </span>
+          </label>
+          <label class="leave-option">
+            <input type="radio" name="leaveType" value="personal" />
+            <span class="leave-option-body">
+              <b>事假</b>
+              <small>当天不计薪，跳过周末和法定节假日</small>
+            </span>
+          </label>
+        </div>
+        <div class="leave-time-row">
+          <label class="field">
+            <span>开始时间</span>
+            <input id="leaveStart" type="time" step="60" />
+          </label>
+          <label class="field">
+            <span>结束时间</span>
+            <input id="leaveEnd" type="time" step="60" />
+          </label>
+        </div>
+        <p class="leave-duration" id="leaveDuration"></p>
+        <p class="leave-effective" id="effectiveHint"></p>
+        <p class="leave-existing" id="existingHint" hidden></p>
+      </section>
+    </div>
+
+    <footer class="footer leave-footer">
+      <div class="footer-info">
+        <div class="error" id="error" role="alert"></div>
+      </div>
+      <div class="footer-actions">
+        <button class="btn ghost" id="removeBtn" type="button" hidden>取消这天的请假</button>
+        <button class="btn ghost" id="cancelBtn" type="button">关闭</button>
+        <button class="btn primary" id="saveBtn" type="button">保存请假</button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="leave.js"></script>
+</body>
+</html>

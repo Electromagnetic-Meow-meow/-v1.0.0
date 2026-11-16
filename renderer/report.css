@@ -1,0 +1,200 @@
+.report-window {
+  height: 100vh;
+}
+
+.report-content {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px 18px;
+  overflow: hidden;
+}
+
+.report-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex: none;
+  flex-wrap: wrap;
+}
+
+.report-month-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted-2);
+}
+
+.report-month-field select {
+  height: 30px;
+  min-width: 150px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  color-scheme: dark;
+  outline: none;
+}
+
+.report-tip {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--muted-2);
+}
+
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+  flex: none;
+}
+
+.report-stat {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.report-stat span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted-2);
+  margin-bottom: 5px;
+}
+
+.report-stat b {
+  display: block;
+  font-family: 'Bahnschrift', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.report-stat small {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 1.5;
+  color: var(--muted-2);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: break-word;
+}
+
+.report-table-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.report-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 8px;
+  background: #1b1b1f;
+  color: var(--muted-2);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.report-table th:nth-child(1),
+.report-table th:nth-child(2),
+.report-table th:nth-child(3) {
+  text-align: left;
+}
+
+.report-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+  color: #d9dfe7;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.report-table td:nth-child(1),
+.report-table td:nth-child(2),
+.report-table td:nth-child(3) {
+  text-align: left;
+}
+
+.report-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.report-table tr.weekend td {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.report-table tr.leave-row td {
+  background: rgba(251, 191, 36, 0.055);
+}
+
+.report-table tr.today-row td {
+  background: rgba(251, 146, 60, 0.075);
+}
+
+.report-table tr.future-row td {
+  color: var(--muted-2);
+}
+
+.report-table .money {
+  color: #e9edf2;
+}
+
+.report-table .muted {
+  color: var(--muted-2);
+}
+
+.report-status {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.report-status.leave {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.11);
+}
+
+.report-empty {
+  padding: 34px 12px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted-2);
+}
+
+.report-error {
+  min-height: 16px;
+  margin-top: 8px;
+  flex: none;
+  font-size: 10px;
+  color: #fb7185;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "salary-widget",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Windows 桌面工资小组件：实时收入、下班倒计时、加班与请假统计",
+  "main": "main.js",
+  "author": "Salary Widget contributors",
+  "license": "MIT",
+  "keywords": [
+    "electron",
+    "windows",
+    "desktop-widget",
+    "salary",
+    "countdown"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "package": "node build/package.mjs"
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.3.0",
+    "electron": "^45.2.3"
+  }
+}

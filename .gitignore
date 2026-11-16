@@ -1,0 +1,37 @@
+# Dependencies and caches
+node_modules/
+.pnpm-store/
+.electron-cache/
+.electron-zips/
+
+# Build output
+dist/
+dist-stage/
+*.zip
+
+# Local runtime data (never commit personal config/records/logs)
+userdata/
+*.log
+npm-debug.log*
+
+# Local debugging and test helpers
+.test-*.js
+.inspect-*.js
+.debug-*.js
+.video*
+.ticks*
+.window-rgn.py
+.click-*.js
+.find-*.py
+.move-*.py
+
+# Editors and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local environment files
+.env
+.env.*

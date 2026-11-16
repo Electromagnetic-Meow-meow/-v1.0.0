@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工资小组件 · 当月薪资</title>
+  <link rel="stylesheet" href="settings.css" />
+  <link rel="stylesheet" href="report.css" />
+</head>
+<body data-accent="sunset">
+  <div class="window report-window">
+    <header class="titlebar">
+      <div class="brand">
+        <span class="logo">¥</span>
+        <div>
+          <div class="title">当月薪资</div>
+          <div class="subtitle" id="monthSubtitle">按天统计，保留当月和上一个月</div>
+        </div>
+      </div>
+      <button class="close-btn" id="closeBtn" title="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M18 6 6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="content report-content" id="content">
+      <div class="report-toolbar">
+        <label class="report-month-field">
+          <span>月份</span>
+          <select id="monthSelect"></select>
+        </label>
+        <button class="mini-btn" id="refreshBtn" type="button">刷新</button>
+        <span class="report-tip">统计保留当月与上一个月，再往前会自动清除</span>
+      </div>
+
+      <div class="report-summary" id="summary">
+        <div class="report-stat">
+          <span>上班天数</span>
+          <b id="workedDays">0 天</b>
+        </div>
+        <div class="report-stat">
+          <span>请假天数</span>
+          <b id="leaveDays">0 天</b>
+          <small id="leaveBreakdown"></small>
+        </div>
+        <div class="report-stat">
+          <span>总工时</span>
+          <b id="totalHours">0 小时</b>
+        </div>
+        <div class="report-stat">
+          <span>基础工资</span>
+          <b id="totalBase">¥0.00</b>
+        </div>
+        <div class="report-stat">
+          <span>本月合计</span>
+          <b id="totalSalary">¥0.00</b>
+          <small id="salaryBreakdown"></small>
+        </div>
+      </div>
+
+      <div class="report-table-wrap">
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>星期</th>
+              <th>状态</th>
+              <th>上班</th>
+              <th>下班</th>
+              <th>工时</th>
+              <th>基础</th>
+              <th>请假</th>
+              <th>加班</th>
+              <th>合计</th>
+            </tr>
+          </thead>
+          <tbody id="reportBody"></tbody>
+        </table>
+        <div class="report-empty" id="empty" hidden>这个月还没有可统计的数据。</div>
+      </div>
+      <div class="report-error" id="error" role="alert"></div>
+    </div>
+  </div>
+  <script src="report.js"></script>
+</body>
+</html>
